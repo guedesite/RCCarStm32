@@ -3,7 +3,7 @@ uint16_t pot[3] = {0,0,0};
 
 void IO_start() {
    #if is_test_mode == true
-    serial_FTDI.println("Start IO");
+    //serial_FTDI.println("Start IO");
   #endif
   pinMode(pin_BTN_0, INPUT);
   pinMode(pin_BTN_1, INPUT);
@@ -22,7 +22,7 @@ uint8_t getPot(uint8_t t) {
 long lastIO = 0;
 
 void IO_update() {
-    if(lastIO + 5 < millis()) {
+    if(lastIO + 20 < millis()) {
       lastIO = millis();
         pot[2] = analogRead(pin_POT_2);
         pot[1] = analogRead(pin_POT_1);
@@ -33,7 +33,7 @@ void IO_update() {
 
           if(pot[0] - 5 > ntemp16 || pot[0] + 5 < ntemp16) {
             #if is_test_mode == true
-              serial_FTDI.println("option update "+((String)ntemp16));
+             // serial_FTDI.println("option update "+((String)ntemp16));
             #endif
             pot[0] = ntemp16;
             updateIntPot(255-ntemp16);

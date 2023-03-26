@@ -20,7 +20,7 @@ uint16_t allSend = 0;
 
 void lcd_start() {
   #if is_test_mode == true
-    serial_FTDI.println("Start LCDSS1306");
+    //serial_FTDI.println("Start LCDSS1306");
   #endif
   while(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     digitalWrite(pin_BUZZER, HIGH);
@@ -41,7 +41,7 @@ void lcd_start() {
 
 void lcd_update() {
 
-  if(lastDisplay + refresh_Display < millis()) {   
+  //if(lastDisplay + refresh_Display < millis()) {   
     display.clearDisplay();
 
     //display.fillRect(0, display.height() -16 , 16, display.height(), 1);
@@ -54,16 +54,21 @@ void lcd_update() {
     display.setCursor(5,15);
     display.println(allSend); 
 
-    display.setCursor(70,0);
-    display.println(radio.testCarrier()); 
+    display.setCursor(30,5);
+    display.println(speed);
+    display.setTextSize(1);
+    display.setCursor(65,19);
+    display.println("Km/h");
 
-    display.setCursor(70,15);
-    display.println(radio.testRPD()); 
+    display.setCursor(100,22);
+    display.println(tension);
+    display.display();
+
     allError = 0;
     allSend = 0;
 
     display.display();
-  }
+  //}
 }
 
 

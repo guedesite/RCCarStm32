@@ -4,7 +4,7 @@
 #define pin_SERVO_ESC PB15
 #define pin_SERVO_SERVO PB4
 
-#define serial_FTDI Serial1
+//#define serial_FTDI Serial1
 #define serial_SIM Serial2
 
 #define I2C_BUS_Addr 0x10

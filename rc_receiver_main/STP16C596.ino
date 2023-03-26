@@ -8,7 +8,7 @@ long ledLastEdit = 0;
 
 void STP16_start() {
   #if is_test_mode == true
-    serial_FTDI.println("Start STP16");
+    //serial_FTDI.println("Start STP16");
   #endif
   pinMode(pin_SDI_LED, OUTPUT);
   pinMode(pin_LE_LED, OUTPUT);
@@ -78,7 +78,7 @@ void updateIntPot(uint8_t newv) {
         setLed(6+i,1);
       }
 
-      serial_FTDI.println(actualmenu);
+      //serial_FTDI.println(actualmenu);
 
 }
 

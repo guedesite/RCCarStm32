@@ -9,6 +9,9 @@ uint16_t temp16;
 bool flag;
 uint8_t potDirSpe = 0;
 
+uint8_t speed = 0;
+uint8_t tension = 0;
+
 float opts[6] = {1,0.5,0.5,0.5,0.5,1};
 
 void setup() {
@@ -19,9 +22,9 @@ void setup() {
 
   #if is_test_mode == true
     digitalWrite(PC13, HIGH);
-    serial_FTDI.begin(115200);
+    //serial_FTDI.begin(115200);
     delay(500);
-    serial_FTDI.println("start debug");
+    //serial_FTDI.println("start debug");
     digitalWrite(PC13, LOW);
   #endif
 
@@ -29,11 +32,13 @@ void setup() {
   STP16_start();
   nrf24l01_start();
   lcd_start();
+  lcd_update();
 }
 
 void loop() {
   STP16_update();
-  lcd_update();
+  nrf24l01_update();
+  //lcd_update();
   IO_update();
 }
 

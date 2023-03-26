@@ -7,7 +7,7 @@
 #define pin_BTN_3 PB15
 //#define serial_SIM800 Serial3
 #define serial_HC Serial2
-#define serial_FTDI Serial1
+//#define serial_FTDI Serial1
 #define pin_NRF24_CE PB0
 #define pin_NRF24_CSN PB1
 #define pin_BUZZER PB5
