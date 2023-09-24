@@ -18,12 +18,12 @@ long lastRPM = 0;
 
 Servo ESC,SERVO;
 
-volatile uint16_t speed = 0;
-
-
+volatile uint8_t speed = 0;
+volatile long l = 0;
 void timerInterrupt() {
   if (digitalRead(PA2) == HIGH) {
-    speed++; // incrémenter la variable timerCount si le niveau du PIN est HIGH
+    speed = ((((((float)0.3487) / ((float)((millis() - l)) / (float)1000))) * ((float)3.6)) / ((float)3));
+    l = millis();
   }
 }
 
@@ -59,6 +59,7 @@ radio.setDataRate(RF24_2MBPS);
   radio.openWritingPipe(address[radioNumber]);
   radio.openReadingPipe(1, address[!radioNumber]);
   radio.startListening();
+  l = millis();
 }
 
 
@@ -82,16 +83,12 @@ void loop() {
       long start = millis();
       radio.stopListening();
 
-      uint8_t reduc = 4;
-      float time = 1000.0 / (float)(millis() - lastRPM);
-      uint8_t toSendRpm = (uint8_t) ( ((float)speed) * 0.35 * time * 3.6 / reduc );
-
       uint8_t toSendTension = map(((analogRead(sensor_TENSION)*330)/1023), 232, 297,100,128) ;
 
       
 
       //speed; 0.35m/rpm
-      payload = (toSendTension << 8) | toSendRpm;
+      payload = (toSendTension << 8) | speed;
       //serial_FTDI.println(String(speed)+"Send:"+String(toSendRpm)+" t"+String(toSendTension));
       radio.write(&payload, sizeof(payload));
       lastRPM = millis();
